@@ -4,8 +4,13 @@ import './index.css'
 import App from '@/App.jsx'
 import 'lib-flexible/flexible'
 import './index.css'
+import {
+    BrowserRouter as Router,
+
+} from 'react-router-dom'
 createRoot(document.getElementById('root')).render(
- 
-    <App />
- 
+    <Router>
+        <App />
+    </Router>
+
 )

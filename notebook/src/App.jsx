@@ -1,29 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 // 前后端分离 前端独立的路由功能
 import {
-  HashRouter as Router, 
   // es6 模块化语法
   // BrowserRouter as Router, // hash #, history /
   Routes,
-  Route
+  Route,
+  useLocation
 } from 'react-router-dom'
 import routes from '@/router'
-import { ConfigProvider, Button } from 'zarm';
+import { ConfigProvider } from 'zarm';
 // import 'zarm/dist/zarm.css'; // vite-plugin-style-import 自动引入css
-
-import NavBar from './components/NavBar'
+import NavBar from './components/NavBar';
+import s from './App.module.less'
 export default function App() {
- 
-  return (<>
+  const [showNav, setShowNav] = useState(false)
+  const needNav=['/','/data']
+  const {pathname} = useLocation()
+  useEffect(()=>{
+    //当前路径
+    needNav.includes(pathname) ? setShowNav(true):setShowNav(false)
+  },
+  [])
+  return (
     <ConfigProvider primaryColor='#007fff'>
-      <Router>
-          <Routes>
-            { routes.map(route => <Route key={route.path} path={route.path} element={<route.component />}/>)}
-          </Routes>
-          <Button theme="primary">Hello World!</Button>
-      </Router>
+      <div className={s.app}>
+      <Routes>
+        { routes.map(route => <Route key={route.path} path={route.path} element={<route.component />}/>)}
+      </Routes>
+
+      <NavBar showNav={showNav} />
+      </div>
+      {/* 文档碎片 */}
     </ConfigProvider>
-     <NavBar showNav={true}/>
-     </>
   )
 }
