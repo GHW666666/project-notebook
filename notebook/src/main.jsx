@@ -5,7 +5,7 @@ import App from '@/App.jsx'
 import 'lib-flexible/flexible'
 import './index.css'
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ 
     <App />
-  </StrictMode>,
+ 
 )

@@ -32,7 +32,7 @@ export default defineConfig({
         changeOrigin:true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
-    } //代理配置
+    } //代理配置  解决了开发环境跨域问题
   }
   
 })
