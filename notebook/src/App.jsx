@@ -14,13 +14,13 @@ import NavBar from './components/NavBar';
 import s from './App.module.less'
 export default function App() {
   const [showNav, setShowNav] = useState(false)
-  const needNav=['/','/data']
+  const needNav=['/','/data','/user']
   const {pathname} = useLocation()
   useEffect(()=>{
     //当前路径
     needNav.includes(pathname) ? setShowNav(true):setShowNav(false)
   },
-  [])
+  [pathname])
   return (
     <ConfigProvider primaryColor='#007fff'>
       <div className={s.app}>
