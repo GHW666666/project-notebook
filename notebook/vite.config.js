@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
 import path from 'path'
+// console.log(__dirname)
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), createStyleImportPlugin({
@@ -13,26 +14,32 @@ export default defineConfig({
       }
     ]
   })],
-  css:{
-    modules:{ //css模块化配置
+  css: {
+    modules: {
       localsConvention: 'dashesOnly'
-    }
+    },
+    preprocessorOptions: {
+      // 针对 Less 预处理器的配置
+     less: {
+       // 允许在 Less 文件中使用内联 JavaScript
+       javascriptEnabled: true,
+     }
+   }
   },
   resolve: {
     alias: {
-      //__dirname 是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
-      '@': path.resolve(__dirname, './src'),
-      'utils':path.resolve(__dirname,'./src/utils')
+      // 项目的物理路径
+      '@': path.resolve(__dirname, 'src'),
+      'utils': path.resolve(__dirname, 'src/utils')
     }
   },
-  server:{
-    proxy:{
-      '/api':{
-        target:'http://localhost:3000/api',
-        changeOrigin:true,
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:7001/',
+        changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
-    } //代理配置  解决了开发环境跨域问题
+    }
   }
-  
 })
